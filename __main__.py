@@ -14,9 +14,9 @@ import pandas as pd
 import click
 from pick import pick
 from tqdm import tqdm
-import w2v_similarity as w2v
-import edit_distance as ed
-import translations as trans
+import utils.w2v_similarity as w2v
+import utils.edit_distance as ed
+import utils.translations as trans
 
 
 def find_terms(df):

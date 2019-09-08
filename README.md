@@ -12,7 +12,7 @@ Your data should have a column with the words you wish to find synonyms for. The
 | 2  |      |      | amet,consectetur,adipiscing   |
 | 3  |      |      | pellentesque                  |
 
-It returns:
+## The script returns
 
  1. A new csv with updated synonyms
  

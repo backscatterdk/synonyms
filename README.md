@@ -7,9 +7,23 @@ Your data should have a column with the words you wish to find synonyms for. The
 
 | id | col1 | col2 | col3                          |
 |----|------|------|-------------------------------|
-| 1  |      |      | lorem,ipsum,dolor,sit      |
-| 2  |      |      | amet,consectetur,adipiscing |
+| 1  |      |      | lorem,ipsum,dolor,sit         |
+| 2  |      |      | amet,consectetur,adipiscing   |
 | 3  |      |      | pellentesque                  |
 
 
+It returns the following.
 
+## 1. A new csv with updated synonyms
+| id | col1 | col2 | col3                          |
+|----|------|------|-------------------------------|
+| 1  |      |      | lorem,ipsum,pellentesque,sit  |
+| 2  |      |      | amet,lorem,adipiscing         |
+| 3  |      |      | pellentesque                  |
+
+## 2. A log of updated words
+
+| from        | to           |
+|-------------|--------------|
+| dolor       | pellentesque |
+| consectetur | lorem        |

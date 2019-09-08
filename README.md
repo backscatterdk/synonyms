@@ -7,8 +7,8 @@ Your data should have a column with the words you wish to find synonyms for. The
 
 | id | col1 | col2 | col3                          |
 |----|------|------|-------------------------------|
-| 1  |      |      | lorem, ipsum, dolor, sit      |
-| 2  |      |      | amet, consectetur, adipiscing |
+| 1  |      |      | lorem,ipsum,dolor,sit      |
+| 2  |      |      | amet,consectetur,adipiscing |
 | 3  |      |      | pellentesque                  |
 
 

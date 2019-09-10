@@ -14,9 +14,7 @@ import pandas as pd
 import click
 from pick import pick
 from tqdm import tqdm
-import utils.w2v_similarity as w2v
-import utils.edit_distance as ed
-import utils.translations as trans
+from utils import postagger, translations, w2v_similarity, edit_distance
 
 
 def find_terms(df):
@@ -93,14 +91,21 @@ ARGS = PARSER.parse_args()
 
 DATA = pd.read_csv(ARGS.data)
 
+# Find key words
+NLP_TITLE = 'Is your data free texts or already in lists of words?'
+USE_NLP = ['texts', 'lists of words']
+USE_NLP, NLP_TITLE = pick(USE_NLP, NLP_TITLE)
+if USE_NLP == 'texts':
+    DATA = postagger.main(DATA)
+
 TERMS = find_terms(DATA)
 
 # Translate
-TRANS_TITLE = 'Would like to translate everything to English?'
+TRANS_TITLE = 'Would you like to translate everything to English?'
 USE_TRANS = ['yes', 'no']
 USE_TRANS, TRANS_TITLE = pick(USE_TRANS, TRANS_TITLE)
 if USE_TRANS == 'yes':
-    TERMS = trans.make_translations(TERMS)
+    translations.make_translations(TERMS)
 
 # Write csv with combinations (too big for memory)
 with open('combinations.csv', 'w', newline='') as outfile:
@@ -118,11 +123,18 @@ LEV_TITLE = 'Would like to use word distance?'
 USE_LEV = ['yes', 'no']
 USE_LEV, LEV_TITLE = pick(USE_LEV, LEV_TITLE)
 if USE_LEV == 'yes':
-    ed.find_distances()
+    lev_cutoff_msg = "At what distance would you like to cut off \
+word similarities? Default: "
+    lev_cutoff = ask_cutoff(lev_cutoff_msg, 0.8)
+    edit_distance.find_distances(lev_cutoff)
 
 # w2v
 W2V_TITLE = 'Would like to use word2vec?'
 USE_W2V = ['yes', 'no']
 USE_W2V, W2V_TITLE = pick(USE_W2V, W2V_TITLE)
 if USE_W2V == 'yes':
-    w2v.find_w2v()
+    # Change these values to allow more or less words
+    w2v_cutoff_msg = "At what w2v-difference would you like to cut off \
+word similarities? Default: "
+    w2v_cutoff = ask_cutoff(w2v_cutoff_msg, 0.65)
+    w2v_similarity.find_w2v(w2v_cutoff)

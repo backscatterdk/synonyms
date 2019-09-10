@@ -5,20 +5,18 @@ Functions related to finding edit distance. Currently uses Jaro-Winkler.
 
 import shutil
 import os
+from glob import glob
 from pyjarowinkler import distance
 from dask.diagnostics import ProgressBar
 import dask.dataframe as dd
 from tqdm import tqdm
-from glob import glob
+import numpy as np
 
 
-def find_distances():
+def find_distances(cutoff):
     """
     Main function for calculating distance on whole df.
     """
-    cutoff_msg = "At what distance would you like to cut off \
-word similarities? Default: "
-    cutoff = ask_cutoff(cutoff_msg, 0.8)
 
     # Read combinations csv as dask df
     ddf = dd.read_csv('combinations.csv', dtype='str')

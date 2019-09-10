@@ -2,6 +2,7 @@
 Functions related to translating words.
 """
 
+import os
 import json
 from tqdm import tqdm
 from googletrans import Translator
